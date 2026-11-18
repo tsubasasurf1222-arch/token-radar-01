@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Token Radar — pre-token protocols ranked by implied value</title>
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+<header class="top">
+  <div class="brand">
+    <div class="mark" aria-hidden="true"></div>
+    <div>
+      <h1>Token Radar</h1>
+      <p class="sub">Pre-token protocols ranked by implied value, each with a farm plan.</p>
+    </div>
+  </div>
+  <p class="meta" id="meta"></p>
+</header>
+
+<section class="stats" id="stats" aria-label="Board summary"></section>
+
+<section class="controls" aria-label="Filter and sort the board">
+  <label class="ctl grow">Search
+    <input id="q" type="search" placeholder="Protocol name or slug" autocomplete="off">
+  </label>
+  <label class="ctl">Category
+    <select id="cat"><option value="">All categories</option></select>
+  </label>
+  <label class="ctl">Chain
+    <select id="chain"><option value="">All chains</option></select>
+  </label>
+  <label class="ctl">Sort by
+    <select id="sort">
+      <option value="rank">Implied value</option>
+      <option value="tvl">TVL</option>
+      <option value="change">7-day change</option>
+      <option value="age">Age</option>
+      <option value="multiple">Category multiple</option>
+      <option value="name">Name</option>
+    </select>
+  </label>
+  <label class="check"><input id="watch" type="checkbox"> Watchlist only</label>
+  <p class="count" id="count"></p>
+</section>
+
+<main>
+  <div class="tablewrap">
+    <table id="board">
+      <thead>
+        <tr>
+          <th class="num">#</th><th>Protocol</th><th>Category</th><th>Chains</th>
+          <th class="num">TVL</th><th class="num">7d</th><th class="num">Age</th>
+          <th class="num">Multiple</th><th class="num">Implied value</th>
+        </tr>
+      </thead>
+      <tbody id="rows"></tbody>
+    </table>
+    <p class="empty" id="empty" hidden>No protocol matches this filter. Loosen it and the board comes back.</p>
+  </div>
+
+  <section id="detail" class="detail" hidden aria-label="Protocol detail"></section>
+
+  <section class="panel" id="model">
+    <h2>How the implied value is built</h2>
+    <p class="formula">implied value = TVL &times; category multiple &times; growth factor &times; maturity factor &times; breadth factor</p>
+    <div class="cols" id="model-text"></div>
+    <h3>The comparables: what the market pays per $1 of TVL</h3>
+    <p class="note" id="comp-note"></p>
+    <div class="tablewrap">
+      <table id="comps">
+        <thead><tr><th>Category</th><th class="num">Token-bearing protocols</th><th class="num">Median mcap / TVL</th><th class="num">Multiple used</th></tr></thead>
+        <tbody id="comp-rows"></tbody>
+      </table>
+    </div>
+    <h3>Already trading (never ranked)</h3>
+    <p class="note">Protocols whose token already trades are kept off the board and shown at the market's own value. They are the evidence the multiples come from, not entries on the radar.</p>
+    <div class="tablewrap">
+      <table id="live">
+        <thead><tr><th>Protocol</th><th>Category</th><th class="num">Market cap</th><th class="num">TVL</th><th class="num">mcap / TVL</th><th class="num">7d</th></tr></thead>
+        <tbody id="live-rows"></tbody>
+      </table>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <p id="foot"></p>
+</footer>
+
+<script src="../data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
